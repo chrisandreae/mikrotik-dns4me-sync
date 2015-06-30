@@ -6,12 +6,6 @@ require 'pp'
 require 'mtik'
 require 'json'
 
-$ip_queue = Queue.new
-$result_queue = Queue.new
-$result_mutex = Mutex.new
-$tracerouters = {}
-$seen = {}
-
 def mtik *cmd
   response = MTik::command(
     :host => '192.168.133.1',
