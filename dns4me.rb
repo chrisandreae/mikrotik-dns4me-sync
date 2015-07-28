@@ -1,3 +1,5 @@
+#!/usr/local/bin/ruby
+
 require 'net/http'
 require 'mtik'
 
