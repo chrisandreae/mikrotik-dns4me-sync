@@ -24,8 +24,10 @@ def mtik(*cmd)
   r_result
 end
 
-d4m_uri = URI.parse("https://dns4me.net/user/hosts_file_api/#{D4M_GUID}")
-d4m_hosts = Net::HTTP.get(d4m_uri).each_line.with_object({}) do |l, h|
+d4m_uri = URI.parse("https://dns4me.net/api/v2/get_hosts/hosts/#{D4M_GUID}")
+d4m_host_file = Net::HTTP.get(d4m_uri)
+raise "No hosts retrieved" if d4m_host_file.size.zero?
+d4m_hosts = d4m_host_file.each_line.with_object({}) do |l, h|
   if m = /^([0-9\.]+)\s+(\S+)$/.match(l)
     ip, name = m.captures
     h[name] = ip
@@ -47,6 +49,7 @@ mtik('/ip/dns/static/print').each do |h|
 end
 
 unless rm_list.empty?
+  puts "Removing #{rm_list.size} mappings"
   mtik('/ip/dns/static/remove', "=.id=#{rm_list.join(',')}")
 end
 
