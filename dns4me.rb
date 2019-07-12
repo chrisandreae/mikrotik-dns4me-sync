@@ -2,19 +2,20 @@
 
 require 'net/http'
 require 'mtik'
-require_relative 'loadable_config'
+require 'loadable_config'
 
 class AppConfig < LoadableConfig
   attributes :routeros_host, :routeros_user, :routeros_password, :d4m_guid
   config_file 'config.yml'
 end
 
-def mtik(*cmd)
-  response = MTik::command(:host => AppConfig.routeros_host,
-                           :user => AppConfig.routeros_user,
-                           :pass => AppConfig.routeros_password,
-                           :limit => 100000,
-                           :command => cmd).first
+@mt = MTik::Connection.new(host: AppConfig.routeros_host,
+                           user: AppConfig.routeros_user,
+                           pass: AppConfig.routeros_password,
+                           ssl: true)
+
+def mtik(cmd, *args)
+  response = @mt.get_reply(cmd, *args)
 
   r_result = response.select { |x| x.has_key? '!re' }
   r_trap = response.select { |x| x.has_key? '!trap' }

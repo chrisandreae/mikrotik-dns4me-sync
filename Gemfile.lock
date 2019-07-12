@@ -1,0 +1,17 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    json_schema (0.20.6)
+    loadable_config (1.0.0)
+      json_schema
+    mtik (4.0.3)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  loadable_config
+  mtik
+
+BUNDLED WITH
+   1.17.2
