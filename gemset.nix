@@ -4,10 +4,10 @@
     platforms = [];
     source = {
       remotes = ["https://rubygems.org"];
-      sha256 = "0fxniiwszmgpbgw4g5p6sll6bdh9p85qxqax5ag2rxji4dv26rsk";
+      sha256 = "1d88bjxrqrpjn58rjvpz9kjpnnsrqi4zpjsrvx25sk1bd8shqy3k";
       type = "gem";
     };
-    version = "0.20.6";
+    version = "0.20.8";
   };
   loadable_config = {
     dependencies = ["json_schema"];
