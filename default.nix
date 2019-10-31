@@ -1,5 +1,11 @@
-{ stdenv, lib, fetchgit, fetchpatch, makeWrapper, bundlerEnv, defaultGemConfig, ruby }:
-
+{ stdenv, lib, fetchgit, fetchpatch, makeWrapper, bundlerEnv, defaultGemConfig, ruby_2_6, openssl_1_0_2 }:
+let
+  ruby = ruby_2_6.override {
+    # The mtik gem uses SSL without certificates in a way that modern OpenSSL
+    # doesn't like.
+    openssl = openssl_1_0_2;
+  };
+in
 stdenv.mkDerivation rec {
   name = "mikrotik-dns4me-sync";
   version = "0.1.0";
@@ -20,8 +26,8 @@ stdenv.mkDerivation rec {
         dontBuild = false;
         patches = (attrs.patches or []) ++ [
           (fetchpatch {
-            url = "https://github.com/astounding/mtik/compare/103aa140dff0917256245b1d4dd878990bd2fcda..92f6f7d341c4576b4f41c58db3378689343d4736.diff";
-            sha256 = "0x6zkv6lwfhvnk9kkmjd66n677q2chms18zjql6w7jw1z71w8z7p";
+            url = "https://github.com/astounding/mtik/compare/103aa140dff0917256245b1d4dd878990bd2fcda..1181245d409ae9cac946b01c83ef90b293008ae4.diff";
+            sha256 = "134jiks2bivcw1jpra6klz0ziip78rfizcv1nhid4x3fl193qizi";
           })
         ];
       };
