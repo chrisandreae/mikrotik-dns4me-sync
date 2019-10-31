@@ -1,7 +1,7 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    json_schema (0.20.6)
+    json_schema (0.20.8)
     loadable_config (1.0.0)
       json_schema
     mtik (4.0.3)
