@@ -52,8 +52,12 @@ mtik('/ip/dns/static/print').each do |h|
 end
 
 unless rm_list.empty?
-  puts "Removing #{rm_list.size} mappings"
-  mtik('/ip/dns/static/remove', "=.id=#{rm_list.join(',')}")
+  print "Removing #{rm_list.size} mappings"
+  rm_list.each_slice(100) do |slice|
+    print '.'
+    mtik('/ip/dns/static/remove', "=.id=#{slice.join(',')}")
+  end
+  puts '.'
 end
 
 # Add remaining hosts
